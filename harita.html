@@ -11,17 +11,17 @@
       margin: 0;
       padding: 0;
     }
-
     .tooltip {
-      position: absolute;
-      background: #fff;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 14px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      display: none;
-      pointer-events: none;
-      z-index: 9999;
+    position: absolute;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: none;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
     }
 
     svg path {
@@ -52,11 +52,13 @@
   const sehirBilgileri = {
     ankara: { ad: "Ankara", bursiyer: 54 },
     istanbul: { ad: "İstanbul", bursiyer: 80 },
-    // Diğer iller...
+    izmir: { ad: "İzmir", bursiyer: 43 },
+    // Diğer şehirler...
   };
 
   document.querySelectorAll("svg path").forEach(sehir => {
     const id = sehir.id;
+
     sehir.addEventListener("mouseenter", (e) => {
       if (sehirBilgileri[id]) {
         const bilgi = sehirBilgileri[id];
@@ -66,8 +68,8 @@
     });
 
     sehir.addEventListener("mousemove", (e) => {
-      tooltip.style.left = (e.pageX + 15) + "px";
-      tooltip.style.top = (e.pageY + 15) + "px";
+      tooltip.style.left = e.pageX + 10 + "px";
+      tooltip.style.top = e.pageY + 10 + "px";
     });
 
     sehir.addEventListener("mouseleave", () => {
@@ -75,6 +77,7 @@
     });
   });
 </script>
+
 
 </body>
 </html>
