@@ -11,18 +11,17 @@
       margin: 0;
       padding: 0;
     }
-    .tooltip {
-    position: absolute;
-    background: #fff;
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 14px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    display: none;
-    pointer-events: none;
-    z-index: 9999;
-    white-space: nowrap;
-    }
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  pointer-events: none;
+  display: none;
+  z-index: 999;
+}
 
     svg path {
       cursor: pointer;
@@ -47,35 +46,28 @@
 </div>
 
 <script>
-  const tooltip = document.getElementById("tooltip");
+ document.addEventListener("DOMContentLoaded", function () {
+  const tooltip = document.getElementById("sehirTooltip");
 
-  const sehirBilgileri = {
-    ankara: { ad: "Ankara", bursiyer: 54 },
-    istanbul: { ad: "İstanbul", bursiyer: 80 },
-    izmir: { ad: "İzmir", bursiyer: 43 },
-    // Diğer şehirler...
-  };
+  document.querySelectorAll("#svg-turkiye-haritasi g").forEach(il => {
+    il.addEventListener("mouseenter", function (e) {
+      const sehirAdi = il.getAttribute("data-iladi");
+      const bursiyerSayisi = il.getAttribute("data-bursiyer") || "0"; // örnek veri
 
-  document.querySelectorAll("svg path").forEach(sehir => {
-    const id = sehir.id;
-
-    sehir.addEventListener("mouseenter", (e) => {
-      if (sehirBilgileri[id]) {
-        const bilgi = sehirBilgileri[id];
-        tooltip.innerHTML = `<strong>${bilgi.ad}</strong><br>${bilgi.bursiyer} Bursiyer`;
-        tooltip.style.display = "block";
-      }
+      tooltip.innerText = `${sehirAdi}, ${bursiyerSayisi} Bursiyer`;
+      tooltip.style.display = "block";
     });
 
-    sehir.addEventListener("mousemove", (e) => {
-      tooltip.style.left = e.pageX + 10 + "px";
-      tooltip.style.top = e.pageY + 10 + "px";
+    il.addEventListener("mousemove", function (e) {
+      tooltip.style.left = (e.pageX + 10) + "px";
+      tooltip.style.top = (e.pageY + 10) + "px";
     });
 
-    sehir.addEventListener("mouseleave", () => {
+    il.addEventListener("mouseleave", function () {
       tooltip.style.display = "none";
     });
   });
+});
 </script>
 
 
